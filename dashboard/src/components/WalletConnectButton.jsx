@@ -30,3 +30,8 @@ export default function WalletConnectButton() {
     </button>
   );
 }
+
+import toast from 'react-hot-toast';
+
+toast.success('Connected Wallet!');
+toast.error('Failed to connect wallet.');
