@@ -19,3 +19,8 @@ const transfers = [
     );
   }
   
+  import toast from 'react-hot-toast';
+
+  toast.success('Upload Successful!');
+  toast.error('Failed to upload.');
+  
