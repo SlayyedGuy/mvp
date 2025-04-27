@@ -1,53 +1,30 @@
 const fs = require('fs')
-const path = require('path')
-const axios = require('axios')
-const { encryptFile } = require('../encryption/encryptor')
-const { splitFile } = require('../encryption/splitter')
-const logger = require('../utils/logger')
+const { startP2P } = require('./p2p_manager')
+const { hashFile } = require('./file_hashing')
+const { prepareFileForStorage, uploadChunksWithRetry } = require('./storage_manager')
 
-const CHUNK_DIR = path.join(__dirname, '../uploads')
-
-async function prepareFileForStorage(originalPath, secretKey) {
-  const encryptedPath = originalPath + '.enc'
-  encryptFile(originalPath, encryptedPath, secretKey)
-  
-  const chunks = await splitFile(encryptedPath)
-  logger.info(`File encrypted and split into ${chunks.length} chunks.`)
-  
-  return chunks
-}
-
-async function uploadChunk(chunkPath) {
-  const formData = new FormData()
-  formData.append('file', fs.createReadStream(chunkPath))
-  
+async function uploadFile(filePath, secretKey) {
   try {
-    const res = await axios.post('http://localhost:5001/api/upload', formData, {
-      headers: formData.getHeaders()
-    })
-    logger.info(`Uploaded chunk: ${chunkPath}`)
-    return true
+    // Start P2P
+    const p2pNode = await startP2P()
+
+    // Encrypt and split file into chunks
+    const chunks = await prepareFileForStorage(filePath, secretKey)
+
+    // Hash the entire file for integrity verification
+    const fileHash = await hashFile(filePath)
+    console.log(`File hash: ${fileHash}`)
+
+    // Upload all chunks with retry logic
+    await uploadChunksWithRetry(chunks)
+
+    // Inform the P2P network about the file hash (for decentralized verification)
+    await p2pNode.pubsub.publish('filehash', Buffer.from(fileHash))
+
+    console.log('File uploaded successfully to the decentralized network!')
   } catch (error) {
-    logger.error(`Failed uploading ${chunkPath}: ${error.message}`)
-    return false
+    console.error('Error during file upload:', error)
   }
 }
 
-async function uploadChunksWithRetry(chunks, retries = 3) {
-  for (const chunk of chunks) {
-    let success = await uploadChunk(chunk)
-    let attempts = 0
-    
-    while (!success && attempts < retries) {
-      logger.warn(`Retrying upload for ${chunk}...`)
-      success = await uploadChunk(chunk)
-      attempts++
-    }
-
-    if (!success) {
-      logger.error(`Failed to upload chunk after ${retries} retries: ${chunk}`)
-    }
-  }
-}
-
-module.exports = { prepareFileForStorage, uploadChunksWithRetry }
+module.exports = { uploadFile }
