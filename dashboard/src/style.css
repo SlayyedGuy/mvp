@@ -1,0 +1,10 @@
+/* /dashboard/src/index.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Your custom styles here */
+body {
+  @apply bg-gray-900 text-white;
+}
