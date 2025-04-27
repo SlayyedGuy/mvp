@@ -1,21 +1,30 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { useDropzone } from 'react-dropzone'
+import axios from 'axios'
+import toast from 'react-hot-toast'
 
-function UploadFileModal({ onDrop }) {
-  const dropHandler = useCallback((acceptedFiles) => {
-    onDrop(acceptedFiles)
-  }, [onDrop])
+function UploadFileModal() {
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop: async (acceptedFiles) => {
+      const formData = new FormData()
+      acceptedFiles.forEach(file => {
+        formData.append('files', file)
+      })
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop: dropHandler })
+      try {
+        await axios.post('http://localhost:5001/api/upload', formData)
+        toast.success('Files uploaded successfully!')
+      } catch (error) {
+        console.error(error)
+        toast.error('Upload failed.')
+      }
+    }
+  })
 
   return (
-    <div {...getRootProps()} className="border-2 border-dashed p-6 rounded-2xl text-center cursor-pointer hover:border-accent transition">
+    <div {...getRootProps()} className="p-10 border-2 border-dashed border-accent rounded-xl bg-gray-900 text-center cursor-pointer">
       <input {...getInputProps()} />
-      {isDragActive ? (
-        <p>Drop files here...</p>
-      ) : (
-        <p>Drag and drop files here or click to upload</p>
-      )}
+      <p>Drop files here, or click to select</p>
     </div>
   )
 }
