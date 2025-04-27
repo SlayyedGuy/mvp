@@ -1,22 +1,38 @@
-// Local API server for dashboard
+const express = require('express')
+const multer = require('multer')
+const cors = require('cors')
+const fs = require('fs')
+const path = require('path')
 
-const express = require('express');
-const app = express();
-const port = 5000;
+const app = express()
+const PORT = 5001
 
-app.get('/api/stats', (req, res) => {
-    res.json({
-        storageUsed: 12.5, // dummy value
-        tokensEarned: 150,  // dummy value
-        uptimeHours: 48,    // dummy value
-        peersConnected: 5,  // dummy value
-    });
-});
+app.use(cors())
+app.use(express.json())
 
-function startAPIServer() {
-    app.listen(port, () => {
-        console.log(`API server running at http://localhost:${port}`);
-    });
+const upload = multer({ dest: 'uploads/' })
+
+// In-memory node stats
+let nodeStats = {
+  peers: 4,
+  uptime: 10,
 }
 
-module.exports = { startAPIServer };
+// Upload Endpoint
+app.post('/api/upload', upload.array('files'), (req, res) => {
+  if (!req.files) {
+    return res.status(400).send('No files uploaded')
+  }
+  console.log('Files received:', req.files.length)
+  res.send('Files uploaded successfully')
+})
+
+// Stats Endpoint
+app.get('/api/stats', (req, res) => {
+  res.json(nodeStats)
+})
+
+// Start Server
+app.listen(PORT, () => {
+  console.log(`Node server running at http://localhost:${PORT}`)
+})
