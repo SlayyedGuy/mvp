@@ -101,12 +101,73 @@ npm run dev
 ## 📚 Project Structure
 
 ```
-/components - Reusable UI components (WalletConnect, Upload, etc.)
-/pages - Next.js pages (Dashboard)
-/client - Backend Express server (API)
-/public - Static assets
-tailwind.config.js - Tailwind setup
-next.config.js - Next.js setup
+/blockchain
+    /contracts
+        StorageToken.sol             # ERC-20 token smart contract
+    /scripts
+        deploy_contract.js           # Deploy token contract
+        submit_proof.js              # Submit proof to smart contract
+    /config
+        polygon_mumbai_config.json   # Network and wallet settings
+    README.md                        # Blockchain deployment instructions
+
+/client
+    /core
+        p2p_manager.js                # Peer-to-peer network connection
+        storage_manager.js            # Encrypt/store/manage file chunks
+        uptime_tracker.js             # Track GB-hours of uptime
+        proof_manager.js              # Handle manual proof of storage
+    /blockchain
+        wallet.js                     # Manage user keys and wallet
+        contract_api.js               # Smart contract interactions
+    /encryption
+        encryptor.js                  # Encrypt/decrypt file chunks
+        splitter.js                   # Split/join files into chunks
+    /api
+        server.js                     # Local Node API (REST)
+    /utils
+        logger.js                     # Centralized logging
+        config.js                     # Node settings loader/saver
+    app.js                            # Main NodeJS entry point
+    README.md                         # Node setup instructions
+
+/dashboard
+    /src
+        /components
+            StorageTable.jsx          # Files hosted (BitTorrent-style list)
+            UploadsTable.jsx           # Upload tracking
+            TokenBalanceCard.jsx       # Show token earnings
+            PeerStatusBar.jsx          # Node uptime & peers
+            ActionButtons.jsx          # Start/Stop Node, Submit Proof
+        /pages
+            Dashboard.jsx              # Main dashboard view
+            Settings.jsx               # Storage limits, encryption
+        /layout
+            Navbar.jsx                 # Top navigation bar
+            Sidebar.jsx                # Side menu
+            Footer.jsx                 # Footer information
+        /hooks
+            useNodeStats.js            # Fetch node status
+            useBlockchainStatus.js     # Fetch blockchain status
+    /assets
+        logo.png                       # Minimalist logo
+    /public
+        index.html                     # Main HTML shell
+    tailwind.config.js                 # Tailwind CSS config
+    vite.config.js                     # Vite.js build config
+    package.json                       # Dashboard dependencies
+    README.md                          # Dashboard setup guide
+
+/docs
+    architecture_diagram.png           # System architecture
+    tokenomics.md                       # Token earning system
+    whitepaper.md                       # Technical whitepaper
+    api_spec.md                         # Local Node API specs
+
+LICENSE                                # MIT open-source license
+README.md                              # Overall project README
+.gitignore                             # Ignore node_modules, .env, builds
+
 ```
 
 ---
