@@ -1,0 +1,5 @@
+{
+    "rpcUrl": "https://rpc-mumbai.maticvigil.com",
+    "tokenAddress": "0xYourDeployedTokenAddress"
+  }
+  
