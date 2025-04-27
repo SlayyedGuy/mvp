@@ -5,6 +5,7 @@ import './index.css'
 import { WagmiConfig, createClient, configureChains } from 'wagmi'
 import { publicProvider } from 'wagmi/providers/public'
 import { polygonMumbai } from 'wagmi/chains'
+import './index.css'; // Tailwind styles
 
 const { provider, webSocketProvider } = configureChains(
   [polygonMumbai],
@@ -24,3 +25,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </WagmiConfig>
   </React.StrictMode>,
 )
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>
+);
