@@ -1,4 +1,4 @@
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 
 const data = [
   { time: '00:00', storage: 5 },
@@ -9,14 +9,15 @@ const data = [
 
 export default function StorageUsageChart() {
   return (
-    <div className="p-4 bg-white rounded-2xl shadow-md">
-      <h2 className="text-xl font-bold mb-2">Storage Usage Over Time</h2>
+    <div className="p-4 bg-white dark:bg-gray-800 rounded-2xl shadow-md">
+      <h2 className="text-xl font-bold mb-2 dark:text-white">Storage Usage Over Time</h2>
       <ResponsiveContainer width="100%" height={200}>
         <LineChart data={data}>
-          <XAxis dataKey="time" />
-          <YAxis />
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="time" stroke="#8884d8" />
+          <YAxis stroke="#8884d8" />
           <Tooltip />
-          <Line type="monotone" dataKey="storage" stroke="#8884d8" strokeWidth={2} />
+          <Line type="monotone" dataKey="storage" stroke="#4F46E5" strokeWidth={2} dot={true} activeDot={{ r: 6 }} animationDuration={1000} />
         </LineChart>
       </ResponsiveContainer>
     </div>
