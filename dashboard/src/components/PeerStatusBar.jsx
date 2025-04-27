@@ -1,10 +1,13 @@
 import React from 'react'
+import useNodeStats from '../hooks/useNodeStats'
 
-function PeerStatusBar({ peers, uptime }) {
+function PeerStatusBar() {
+  const { peers, uptime } = useNodeStats()
+
   return (
-    <div className="flex justify-between items-center p-4 bg-darkbg rounded-2xl shadow-lg">
-      <div>🧑‍🤝‍🧑 Peers: {peers}</div>
-      <div>⏱️ Uptime: {uptime}h</div>
+    <div className="flex justify-between items-center bg-gray-800 p-4 rounded-xl">
+      <span>Peers Connected: {peers}</span>
+      <span>Node Uptime: {uptime} hrs</span>
     </div>
   )
 }
