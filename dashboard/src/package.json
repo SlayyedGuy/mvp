@@ -1,0 +1,27 @@
+{
+    "name": "decentralized-storage-dashboard",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+      "dev": "vite",
+      "build": "vite build",
+      "preview": "vite preview"
+    },
+    "dependencies": {
+      "react": "^18.2.0",
+      "react-dom": "^18.2.0",
+      "wagmi": "^1.3.5",
+      "viem": "^1.1.5",
+      "react-hot-toast": "^2.4.0",
+      "recharts": "^2.7.2",
+      "framer-motion": "^10.16.4",
+      "tailwindcss": "^3.4.1"
+    },
+    "devDependencies": {
+      "@vitejs/plugin-react": "^4.0.3",
+      "vite": "^5.2.0",
+      "autoprefixer": "^10.4.14",
+      "postcss": "^8.4.24"
+    }
+  }
+  
