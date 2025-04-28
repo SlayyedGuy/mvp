@@ -15,3 +15,8 @@ export default function App() {
     </div>
   );
 }
+
+<body className="bg-gray-900 text-white">
+  {MVP}
+</body>
+
