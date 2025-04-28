@@ -134,18 +134,32 @@ npm run dev
 /dashboard
     /src
         /components
-            StorageTable.jsx          # Files hosted (BitTorrent-style list)
-            UploadsTable.jsx           # Upload tracking
-            TokenBalanceCard.jsx       # Show token earnings
-            PeerStatusBar.jsx          # Node uptime & peers
-            ActionButtons.jsx          # Start/Stop Node, Submit Proof
+            |-- ActionButtons.jsx
+            |-- DarkModeToggle.jsx
+            |-- FileUploader.jsx
+            |-- LoadingSkeleton.jsx
+            |-- PeerListTable.jsx
+            |-- PeerStatusBar.jsx
+            |-- StorageChart.jsx
+            |-- StorageTable.jsx
+            |-- StorageUsageChart.jsx
+            |-- SyncStatus.jsx
+            |-- TokenBalanceCard.jsx
+            |-- UploadDownloadQueue.jsx
+            |-- UploadFileModal.jsx
+            |-- UploadsTable.jsx
+            |-- WalletConnectButton.jsx
         /pages
-            Dashboard.jsx              # Main dashboard view
-            Settings.jsx               # Storage limits, encryption
+            |-- Admin.jsx
+            |-- App.jsx
+            |-- dashboard.jsx
+            |-- index.jsx
+            |-- Settings.jsx
+            |-- Uploads.jsx
+            |-- _app.jsx
         /layout
             Navbar.jsx                 # Top navigation bar
             Sidebar.jsx                # Side menu
-            Footer.jsx                 # Footer information
         /hooks
             useNodeStats.js            # Fetch node status
             useBlockchainStatus.js     # Fetch blockchain status
@@ -204,16 +218,5 @@ Pull Requests & Contributions are very welcome.
 # 👑 Credits
 
 Built with ❤️ by [SlayyedGuy](https://github.com/SlayyedGuy)
-
----
-
-# 🔥 Badges (optional for top styling)
-
-```markdown
-![Next.js](https://img.shields.io/badge/Next.js-14-blue?style=flat-square&logo=next.js)
-![Node.js](https://img.shields.io/badge/Node.js-Server-green?style=flat-square&logo=node.js)
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-![Powered By](https://img.shields.io/badge/Powered%20By-Blockchain-blueviolet)
-```
 
 ---
