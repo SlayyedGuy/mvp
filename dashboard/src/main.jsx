@@ -2,8 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
-import { WagmiConfig, createConfig, configureChains } from 'wagmi'
-import { publicProvider } from 'wagmi/providers/public'
+import { WagmiConfig, createConfig, } from 'wagmi'
 import { polygonMumbai } from 'wagmi/chains'
 import './index.css'; // Tailwind styles
 
