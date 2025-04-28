@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
-import { WagmiConfig, createClient, configureChains } from 'wagmi'
+import { WagmiConfig, createConfig, configureChains } from 'wagmi'
 import { publicProvider } from 'wagmi/providers/public'
 import { polygonMumbai } from 'wagmi/chains'
 import './index.css'; // Tailwind styles
@@ -12,7 +12,7 @@ const { provider, webSocketProvider } = configureChains(
   [publicProvider()],
 )
 
-const client = createClient({
+const client = createConfig({
   autoConnect: true,
   provider,
   webSocketProvider,
